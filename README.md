@@ -62,7 +62,7 @@ com.example.bibliothequeapp/
 
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/TON_USERNAME/BibliothequeApp.git
+git clone https://github.com/SmileyHackerz/BibliothequeApp.git
 ```
 2. Ouvrir le projet dans **Android Studio**
 3. Cliquer sur **Sync Now** pour synchroniser les dépendances Gradle
