@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F5F5">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <androidx.cardview.widget.CardView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="6dp"
+            android:layout_marginBottom="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <TextView
+                    android:id="@+id/tvTitreFormulaire"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Ajouter un livre"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="#1A237E"
+                    android:layout_marginBottom="24dp" />
+
+                <EditText
+                    android:id="@+id/etTitre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="📖 Titre du livre"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:background="@drawable/input_background"
+                    android:layout_marginBottom="16dp" />
+
+                <EditText
+                    android:id="@+id/etAuteur"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="✍️ Auteur"
+                    android:inputType="textPersonName"
+                    android:padding="12dp"
+                    android:background="@drawable/input_background"
+                    android:layout_marginBottom="16dp" />
+
+                <EditText
+                    android:id="@+id/etIsbn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="🔢 ISBN"
+                    android:inputType="text"
+                    android:padding="12dp"
+                    android:background="@drawable/input_background"
+                    android:layout_marginBottom="20dp" />
+
+                <Switch
+                    android:id="@+id/switchDisponible"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Livre disponible"
+                    android:checked="true"
+                    android:textSize="15sp"
+                    android:layout_marginBottom="24dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnEnregistrer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="💾 Enregistrer"
+                    android:textSize="16sp"
+                    android:padding="14dp"
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    app:cornerRadius="12dp" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+</ScrollView>

@@ -1,11 +1,12 @@
 package com.example.bibliothequeapp;
 
-import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.content.Intent;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -33,7 +34,7 @@ public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHol
         Livre livre = listeLivres.get(position);
 
         holder.tvTitreLivre.setText(livre.getTitre());
-        holder.tvAuteurLivre.setText("Auteur : " + livre.getAuteur());
+        holder.tvAuteurLivre.setText("✍️ " + livre.getAuteur());
         holder.tvIsbnLivre.setText("ISBN : " + livre.getIsbn());
 
         if (livre.isDisponible()) {
@@ -44,10 +45,10 @@ public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHol
             holder.tvDisponibilite.setBackgroundColor(Color.parseColor("#C62828"));
         }
 
-        // ✅ AJOUT : clic sur un item → ouvre DetailActivity
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), DetailActivity.class);
             intent.putExtra("livre", livre);
+            intent.putExtra(AddEditActivity.EXTRA_POSITION, holder.getAdapterPosition());
             v.getContext().startActivity(intent);
         });
     }
