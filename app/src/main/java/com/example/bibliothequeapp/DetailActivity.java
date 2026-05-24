@@ -3,6 +3,7 @@ package com.example.bibliothequeapp;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,8 +11,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 
 public class DetailActivity extends AppCompatActivity {
-
-    public static final int REQUEST_EDIT_FROM_DETAIL = 200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +22,7 @@ public class DetailActivity extends AppCompatActivity {
         TextView tvTitre = findViewById(R.id.tvTitreDetail);
         TextView tvAuteur = findViewById(R.id.tvAuteurDetail);
         TextView tvIsbn = findViewById(R.id.tvIsbnDetail);
+        TextView tvAnnee = findViewById(R.id.tvAnneeDetail);
         TextView tvDispo = findViewById(R.id.tvDisponibiliteDetail);
         MaterialButton btnModifier = findViewById(R.id.btnModifier);
 
@@ -31,13 +31,18 @@ public class DetailActivity extends AppCompatActivity {
             tvAuteur.setText("✍️ " + livre.getAuteur());
             tvIsbn.setText("ISBN : " + livre.getIsbn());
 
+            if (livre.getAnneePublication() > 0) {
+                tvAnnee.setText("📅 " + livre.getAnneePublication());
+                tvAnnee.setVisibility(View.VISIBLE);
+            } else {
+                tvAnnee.setVisibility(View.GONE);
+            }
+
             if (livre.isDisponible()) {
                 tvDispo.setText("✅ Disponible");
-                tvDispo.getBackground().mutate();
                 tvDispo.setBackgroundColor(Color.parseColor("#2E7D32"));
             } else {
                 tvDispo.setText("❌ Indisponible");
-                tvDispo.getBackground().mutate();
                 tvDispo.setBackgroundColor(Color.parseColor("#C62828"));
             }
 
@@ -45,19 +50,9 @@ public class DetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(DetailActivity.this, AddEditActivity.class);
                 intent.putExtra(AddEditActivity.EXTRA_MODE, AddEditActivity.MODE_EDIT);
                 intent.putExtra(AddEditActivity.EXTRA_LIVRE, livre);
-                intent.putExtra(AddEditActivity.EXTRA_POSITION,
-                        getIntent().getIntExtra(AddEditActivity.EXTRA_POSITION, -1));
-                startActivityForResult(intent, REQUEST_EDIT_FROM_DETAIL);
+                startActivity(intent);
+                finish();
             });
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_EDIT_FROM_DETAIL && resultCode == RESULT_OK) {
-            setResult(RESULT_OK, data);
-            finish();
         }
     }
 }

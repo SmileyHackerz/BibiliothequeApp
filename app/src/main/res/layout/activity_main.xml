@@ -4,12 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5">
+    android:background="#F0F4FF">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Titre -->
         <TextView
             android:id="@+id/tvTitreEcran"
             android:layout_width="wrap_content"
@@ -23,6 +24,37 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- Barre de recherche -->
+        <EditText
+            android:id="@+id/etRecherche"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:hint="🔍 Rechercher un titre..."
+            android:padding="10dp"
+            android:background="@drawable/input_background"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            app:layout_constraintTop_toBottomOf="@id/tvTitreEcran"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Message liste vide -->
+        <TextView
+            android:id="@+id/tvListeVide"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="📭 Aucun livre pour l'instant.\nAppuyez sur + pour en ajouter un !"
+            android:textSize="16sp"
+            android:textColor="#9E9E9E"
+            android:gravity="center"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+        <!-- Liste -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewLivres"
             android:layout_width="0dp"
@@ -31,13 +63,14 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="12dp"
-            app:layout_constraintTop_toBottomOf="@id/tvTitreEcran"
+            app:layout_constraintTop_toBottomOf="@id/etRecherche"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
+    <!-- FAB -->
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fabAjouterLivre"
         android:layout_width="wrap_content"

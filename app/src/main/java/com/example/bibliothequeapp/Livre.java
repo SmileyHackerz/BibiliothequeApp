@@ -1,79 +1,46 @@
 package com.example.bibliothequeapp;
+
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.io.Serializable;
 
+@Entity(tableName = "livres")
 public class Livre implements Serializable {
 
-    // Identifiant unique du livre
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
-    // Titre du livre
     private String titre;
-
-    // Nom de l'auteur
     private String auteur;
-
-    // Code ISBN du livre
     private String isbn;
-
-    // Indique si le livre est disponible ou non
     private boolean disponible;
+    private int anneePublication;
 
-    // Constructeur complet
-    public Livre(int id, String titre, String auteur, String isbn, boolean disponible) {
+    public Livre(int id, String titre, String auteur, String isbn, boolean disponible, int anneePublication) {
         this.id = id;
         this.titre = titre;
         this.auteur = auteur;
         this.isbn = isbn;
         this.disponible = disponible;
+        this.anneePublication = anneePublication;
     }
 
-    // Getter pour l'id
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
-    // Setter pour l'id
-    public void setId(int id) {
-        this.id = id;
-    }
+    public String getTitre() { return titre; }
+    public void setTitre(String titre) { this.titre = titre; }
 
-    // Getter pour le titre
-    public String getTitre() {
-        return titre;
-    }
+    public String getAuteur() { return auteur; }
+    public void setAuteur(String auteur) { this.auteur = auteur; }
 
-    // Setter pour le titre
-    public void setTitre(String titre) {
-        this.titre = titre;
-    }
+    public String getIsbn() { return isbn; }
+    public void setIsbn(String isbn) { this.isbn = isbn; }
 
-    // Getter pour l'auteur
-    public String getAuteur() {
-        return auteur;
-    }
+    public boolean isDisponible() { return disponible; }
+    public void setDisponible(boolean disponible) { this.disponible = disponible; }
 
-    // Setter pour l'auteur
-    public void setAuteur(String auteur) {
-        this.auteur = auteur;
-    }
-
-    // Getter pour l'isbn
-    public String getIsbn() {
-        return isbn;
-    }
-
-    // Setter pour l'isbn
-    public void setIsbn(String isbn) {
-        this.isbn = isbn;
-    }
-
-    // Getter pour la disponibilité
-    public boolean isDisponible() {
-        return disponible;
-    }
-
-    // Setter pour la disponibilité
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
-    }
+    public int getAnneePublication() { return anneePublication; }
+    public void setAnneePublication(int anneePublication) { this.anneePublication = anneePublication; }
 }

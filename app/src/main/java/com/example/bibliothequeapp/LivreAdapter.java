@@ -4,21 +4,29 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
-import android.content.Intent;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHolder> {
 
-    private ArrayList<Livre> listeLivres;
+    public interface OnLivreClickListener {
+        void onLivreClick(Livre livre);
+        void onLivreLongClick(Livre livre, int position);
+        void onModifierClick(Livre livre);
+        void onSupprimerClick(Livre livre, int position);
+    }
 
-    public LivreAdapter(ArrayList<Livre> listeLivres) {
+    private List<Livre> listeLivres;
+    private OnLivreClickListener listener;
+
+    public LivreAdapter(List<Livre> listeLivres, OnLivreClickListener listener) {
         this.listeLivres = listeLivres;
+        this.listener = listener;
     }
 
     @NonNull
@@ -38,18 +46,38 @@ public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHol
         holder.tvIsbnLivre.setText("ISBN : " + livre.getIsbn());
 
         if (livre.isDisponible()) {
-            holder.tvDisponibilite.setText("Disponible");
+            holder.tvDisponibilite.setText("✅ Disponible");
             holder.tvDisponibilite.setBackgroundColor(Color.parseColor("#2E7D32"));
         } else {
-            holder.tvDisponibilite.setText("Indisponible");
+            holder.tvDisponibilite.setText("❌ Indisponible");
             holder.tvDisponibilite.setBackgroundColor(Color.parseColor("#C62828"));
         }
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(v.getContext(), DetailActivity.class);
-            intent.putExtra("livre", livre);
-            intent.putExtra(AddEditActivity.EXTRA_POSITION, holder.getAdapterPosition());
-            v.getContext().startActivity(intent);
+            if (listener != null) listener.onLivreClick(livre);
+        });
+
+        holder.itemView.setOnLongClickListener(v -> {
+            if (listener != null) {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    listener.onLivreLongClick(livre, pos);
+                }
+            }
+            return true;
+        });
+
+        holder.btnModifier.setOnClickListener(v -> {
+            if (listener != null) listener.onModifierClick(livre);
+        });
+
+        holder.btnSupprimer.setOnClickListener(v -> {
+            if (listener != null) {
+                int pos = holder.getAdapterPosition();
+                if (pos != RecyclerView.NO_POSITION) {
+                    listener.onSupprimerClick(livre, pos);
+                }
+            }
         });
     }
 
@@ -58,12 +86,34 @@ public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHol
         return listeLivres.size();
     }
 
-    public static class LivreViewHolder extends RecyclerView.ViewHolder {
+    public void ajouterLivre(Livre livre) {
+        listeLivres.add(0, livre);
+        notifyItemInserted(0);
+    }
 
+    public void modifierLivre(int position, Livre livre) {
+        listeLivres.set(position, livre);
+        notifyItemChanged(position);
+    }
+
+    public void supprimerLivre(int position) {
+        listeLivres.remove(position);
+        notifyItemRemoved(position);
+    }
+
+    public void setLivres(List<Livre> livres) {
+        listeLivres.clear();
+        listeLivres.addAll(livres);
+        notifyDataSetChanged();
+    }
+
+    public static class LivreViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitreLivre;
         TextView tvAuteurLivre;
         TextView tvIsbnLivre;
         TextView tvDisponibilite;
+        ImageButton btnModifier;
+        ImageButton btnSupprimer;
 
         public LivreViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -71,6 +121,8 @@ public class LivreAdapter extends RecyclerView.Adapter<LivreAdapter.LivreViewHol
             tvAuteurLivre = itemView.findViewById(R.id.tvAuteurLivre);
             tvIsbnLivre = itemView.findViewById(R.id.tvIsbnLivre);
             tvDisponibilite = itemView.findViewById(R.id.tvDisponibilite);
+            btnModifier = itemView.findViewById(R.id.btnModifier);
+            btnSupprimer = itemView.findViewById(R.id.btnSupprimer);
         }
     }
 }
