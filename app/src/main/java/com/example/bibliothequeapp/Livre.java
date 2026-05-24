@@ -1,6 +1,7 @@
 package com.example.bibliothequeapp;
+import java.io.Serializable;
 
-public class Livre {
+public class Livre implements Serializable {
 
     // Identifiant unique du livre
     private int id;
